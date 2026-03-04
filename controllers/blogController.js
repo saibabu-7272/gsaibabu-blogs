@@ -66,4 +66,31 @@ const getBlogs = async (req, res) => {
   }
 };
 
-export { createBlog, getBlogs };
+// GET SINGLE BLOG
+const getBlog = async (req, res) => {
+  try {
+    const { slug } = req.params;
+
+    const blog = await Blog.findOne({ slug });
+
+    if (!blog) {
+      return res.status(404).json({
+        success: false,
+        message: "Blog not found"
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: blog
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+};
+
+export { createBlog, getBlogs, getBlog };

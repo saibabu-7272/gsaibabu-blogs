@@ -1,9 +1,11 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const { createBlog, getBlogs } = require("../controllers/blogController");
+import { createBlog, getBlogs, getBlog } from "../controllers/blogController.js";
 
 router.post("/", createBlog);
 
 router.get("/", getBlogs); 
 
-module.exports = router;
+router.get("/:slug", getBlog);
+
+export default router;
